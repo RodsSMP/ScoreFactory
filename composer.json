@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "pocketmine/pocketmine-mp": "^4.0.0 || ^5.0.0"
+        "axolotl-pm/pocketmine-mp": "^5.0.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12.99"
@@ -24,9 +24,8 @@
     },
     "license": "GPL-3.0-only",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
-        "psr-4": {
-            "": "src/"
-        }
+        "classmap": ["src"]
     }
 }
