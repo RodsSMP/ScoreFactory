@@ -1,5 +1,5 @@
 {
-    "name": "buchwasa/scorefactory",
+    "name": "axolotl-plugin-orphanage/scorefactory",
     "description": "Simple library for making scoreboards in PocketMine-MP",
     "type": "library",
     "authors": [
