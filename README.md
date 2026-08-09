@@ -1,3 +1,10 @@
+## 🏠 Adopted by axolotl-plugin-orphanage
+
+This virion has been adopted by [**axolotl-plugin-orphanage**](https://github.com/axolotl-plugin-orphanage) due to prolonged inactivity from its original author. It will continue to be maintained and updated to follow [**axolotl-pm/PocketMine-MP**](https://github.com/axolotl-pm/PocketMine-MP).
+
+> [!NOTE]
+> This virion is primarily supported on **axolotl-pm**. Compatibility with other PocketMine-MP forks is not guaranteed and no support will be provided for them.
+
 # ScoreFactory
 
 | Discord | Poggit | License |

@@ -12,6 +12,9 @@ use pocketmine\player\Player;
  */
 class ScoreCache {
 
+	public const MIN_ENTRIY_INDEX = 1;
+	public const MAX_ENTRIY_INDEX = 15;
+
 	/** @var ScorePacketEntry[] */
 	private array $entries = [];
 
@@ -48,10 +51,21 @@ class ScoreCache {
 	/**
 	 * Indexed by (int) line -> ScorePacketEntry
 	 *
-	 * @return ScorePacketEntry[][]
+	 * @return ScorePacketEntry[]
 	 */
 	public function getEntries(): array {
 		return $this->entries;
+	}
+
+	/**
+	 * @return ScorePacketEntry[]
+	 * @phpstan-return list<ScorePacketEntry>
+	 */
+	public function getEntriesList(): array {
+		$enttries  = $this->entries;
+		ksort($enttries);
+
+		return array_values($enttries);
 	}
 
 	/**
@@ -61,17 +75,25 @@ class ScoreCache {
 	 * @param ScorePacketEntry[] $entries
 	 */
 	public function setEntries(array $entries): void {
+		if (count($entries) > self::MAX_ENTRIY_INDEX) {
+			throw new \InvalidArgumentException("No more than " . self::MAX_ENTRIY_INDEX . " entries are allowed");
+		}
+
 		$this->entries = $entries;
 	}
 
 	/**
 	 * Index should be in between 1 and 15
 	 */
-	public function setEntry(int $index, ScorePacketEntry $entry) {
+	public function setEntry(int $index, ScorePacketEntry $entry): void {
+		if ($index < self::MIN_ENTRIY_INDEX || $index > self::MAX_ENTRIY_INDEX) {
+			throw new \InvalidArgumentException("Entry index element " . $index . " is out of bounds of " . self::MIN_ENTRIY_INDEX . "-" . self::MAX_ENTRIY_INDEX);
+		}
+
 		$this->entries[$index] = $entry;
 	}
 
-	public function removeEntry(int $index) {
+	public function removeEntry(int $index): void {
 		unset($this->entries[$index]);
 	}
 

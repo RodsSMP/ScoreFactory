@@ -100,7 +100,7 @@ class ScoreFactory {
 	 * @return Player[]
 	 */
 	public static function getActivePlayers(): array {
-		return array_values(array_map(function(ScoreCache $cache) {
+		return array_values(array_map(static function(ScoreCache $cache) {
 			return $cache->getPlayer();
 		}, self::$cache));
 	}
@@ -141,7 +141,7 @@ class ScoreFactory {
 
 		$entry->action = ScorePacketEntryAction::CHANGE_PLAYER;
 
-		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create([$line => $entry]));
+		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create([$entry]));
 	}
 
 	/**
@@ -159,11 +159,10 @@ class ScoreFactory {
 
 		$cache = self::getCache($player);
 
-		$entries = array_map(function(ScorePacketEntry $entry) {
+		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create(array_map(static function(ScorePacketEntry $entry) {
 			$entry->action = ScorePacketEntryAction::CHANGE_PLAYER;
 			return $entry;
-		}, $cache->getEntries());
-		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create($entries));
+		}, $cache->getEntriesList())));
 	}
 
 	/**
@@ -201,7 +200,7 @@ class ScoreFactory {
 		$entry->action = ScorePacketEntryAction::REMOVE;
 		$entry->objectiveName = $cache->getObjective();
 
-		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create($cache->getEntries()));
+		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create($cache->getEntriesList()));
 	}
 
 	/**
