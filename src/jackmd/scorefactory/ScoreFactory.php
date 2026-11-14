@@ -139,7 +139,7 @@ class ScoreFactory {
 
 		self::removeScoreLine($player, $line, false);
 
-		$entry->action = ScorePacketEntryAction::CHANGE_PLAYER;
+		$entry->action = ScorePacketEntryAction::CHANGE_FAKE_PLAYER;
 
 		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create(SetScorePacket::TYPE_CHANGE, [$entry]));
 	}
@@ -160,7 +160,7 @@ class ScoreFactory {
 		$cache = self::getCache($player);
 
 		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create(SetScorePacket::TYPE_CHANGE, array_map(static function(ScorePacketEntry $entry) {
-			$entry->action = ScorePacketEntryAction::CHANGE_PLAYER;
+			$entry->action = ScorePacketEntryAction::CHANGE_FAKE_PLAYER;
 			return $entry;
 		}, $cache->getEntriesList())));
 	}
