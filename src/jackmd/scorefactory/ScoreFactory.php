@@ -141,7 +141,7 @@ class ScoreFactory {
 
 		$entry->action = ScorePacketEntryAction::CHANGE_FAKE_PLAYER;
 
-		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create(SetScorePacket::TYPE_CHANGE, [$entry]));
+		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create([$entry]));
 	}
 
 	/**
@@ -159,7 +159,7 @@ class ScoreFactory {
 
 		$cache = self::getCache($player);
 
-		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create(SetScorePacket::TYPE_CHANGE, array_map(static function(ScorePacketEntry $entry) {
+		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create(array_map(static function(ScorePacketEntry $entry) {
 			$entry->action = ScorePacketEntryAction::CHANGE_FAKE_PLAYER;
 			return $entry;
 		}, $cache->getEntriesList())));
@@ -182,7 +182,7 @@ class ScoreFactory {
 		$entry->score = $line;
 		$entry->scoreboardId = $line;
 
-		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create(SetScorePacket::TYPE_REMOVE, [$entry]));
+		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create([$entry]));
 	}
 
 	/**
@@ -201,7 +201,7 @@ class ScoreFactory {
 			return $entry;
 		}, $cache->getEntriesList());
 
-		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create(SetScorePacket::TYPE_REMOVE, $entries));
+		$player->getNetworkSession()->sendDataPacket(SetScorePacket::create($entries));
 	}
 
 	/**
